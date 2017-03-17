@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>04. canvas 绘制平行四边形 梯形等</title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			canvas {
+				/*border:1px solid #111;
+			background: red;
+			width: 600px;
+			height: 600px;
+			display: block;
+			margin: 0 auto;	*/
+			}
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<canvas id="canvas">
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 700;
+				canvas.height = 700;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+				
+				//drawStar();//绘制 五角星
+				
+				drawPin();//平行四边形
+			}
+
+			// 五角星
+			function drawStar() {
+				// 绘制 基本图形和线条的步骤 
+				// 三角形 绘制时候 结合 moveTo()  和 lineTo()
+				context.beginPath(); // 开始绘图
+				context.moveTo(76, 197); // 设置路径开始的坐标
+				context.lineTo(421, 197); //
+				context.lineTo(143, 399); //
+				context.lineTo(248, 71); //
+				context.lineTo(356, 399); //
+				context.lineTo(76, 197); //
+
+				context.lineWidth = 1; // lineWidth 线条粗细
+				context.fillStyle = "aqua"; // fillStyle("颜色") fill()  填充色
+				context.strokeStyle = "red"; // strokeStyle("颜色") 线条颜色
+
+				context.closePath(); // 结束
+				context.stroke() // 描边 绘制 轮廓 路径
+				context.fill();
+			}
+
+			 function drawPin(){
+			 	// 绘制 基本图形和线条的步骤 
+				context.beginPath(); // 开始绘图
+				context.moveTo(100, 100); // 设置路径开始的坐标
+				context.lineTo(200,100); 
+				context.lineTo(400,400);
+				context.lineTo(300,400);
+				context.lineTo(100,400);
+				context.lineWidth = 1; // lineWidth 线条粗细
+				context.fillStyle = "aqua"; // fillStyle("颜色") fill()  填充色
+				context.strokeStyle = "red"; // strokeStyle("颜色") 线条颜色
+				context.stroke() // 描边 绘制 轮廓 路径
+				context.fill();
+				
+				
+			 }
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+//			var a = function(){
+//			}
+//			var b = a();
+//			
+//			b(); 
+//			function(){
+//			}()
+//			
+//			(b()) //立即执行
+//			
+//			(function(){
+//			}())
+//			
+//			({
+//				
+//			}())
+
+		</script>
+
+	</body>
+
+</html>

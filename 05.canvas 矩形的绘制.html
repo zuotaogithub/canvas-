@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>05. canvas 矩形</title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<canvas id="canvas">
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 700;
+				canvas.height = 700;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+				drawRect1();//矩形的绘制
+				fRect(100,100,60,60);//自己封装矩形
+					
+				drawRect2(); // rect()
+				drawRect3(); // fillRect()
+				drawRect4(); // strokeRect()
+				clearrect(); // clearRect()
+			}
+
+			// 矩形
+			function drawRect1() {
+				// 绘制 基本图形和线条的步骤 
+				context.beginPath();
+				context.moveTo(10, 10); // 设置路径开始的坐标
+				context.lineTo(100, 10); 
+				context.lineTo(100, 50); 
+				context.lineTo(10, 50);
+				context.closePath();
+				context.fillStyle ="antiquewhite";
+				context.closePath();
+				context.stroke();
+
+			}
+			// 自己 封装画矩形
+			function fRect(x,y,w,h){
+				context.beginPath();
+				context.moveTo(x, y); // 设置路径开始的坐标
+				context.lineTo(x+w, y); 
+				context.lineTo(x+w, y+h); 
+				context.lineTo(x, y+h);
+				context.lineTo(x, y);
+				context.closePath();
+//				context.fillStyle = "aquamarine";
+				context.closePath();
+				context.stroke();
+
+			}
+//			rect(x,y,width,height)函数绘制矩形路径。
+//			fillRect(x,y,weith,height)填充矩形。
+//			strokeRect(x,y,weith,height)描边矩形。
+//			clearRect(x,y,weith,height)清空矩形。
+			
+			//rect()
+			function drawRect2(){
+
+				context.rect(120,120,100,100);
+				context.stroke();
+
+			}
+			//fillRect()
+			function drawRect3(){
+				context.fillStyle="aquamarine"
+				context.fillRect(250,250,60,100);
+			}
+			
+			//strokeRect();
+			function drawRect4(){
+//				context.fillStyle="#f00";
+				context.strokeRect(350,350,60,100);
+			}
+			
+			function  clearrect(){
+				context.fillStyle="aquamarine"
+				context.fillRect(350,350,60,100);
+				context.clearRect(350,350,20,20);
+			}
+			
+		
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>

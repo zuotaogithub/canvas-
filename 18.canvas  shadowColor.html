@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>18.canvas shadowColor.html </title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			/*不要在css 定义 画布的 宽 高*/
+			/*canvas{
+				width: 500px;
+				height: 500px;
+			}*/
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<!--<canvas id="canvas" width="500" height="500">-->
+		<canvas id="canvas">
+		 你好，您的浏览器不支持Canvas？
+		</canvas>
+		<img src="img/man.png" alt=""  id="img"/>
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 500;
+				canvas.height = 500;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+
+//				shadow(); //阴影
+//				shadowoffsetX(); //偏移
+				
+				createpattern();//指定的方向内重复指定的元素
+			}
+			//阴影
+			function shadow() {
+				context.beginPath();
+
+				context.fillStyle = "black";
+				context.shadowBlur = 30; //模糊层度
+				context.shadowColor = "#111111"; // 颜色
+				context.fillRect(20, 20, 100, 120);
+				context.closePath();
+
+			}
+			//偏移
+			function shadowoffsetX() {
+				context.beginPath();
+				context.fillStyle = "black";
+				context.shadowBlur = 30; //模糊层度
+				context.shadowColor = "#111111"; // 颜色
+				context.shadowOffsetY = 100;
+				context.shadowOffsetX = 100;
+				context.fillRect(60, 60, 100, 120);
+				context.closePath();
+			}
+			//指定的方向内重复指定的元素
+			function createpattern(){
+				context.beginPath();
+				var img = document.getElementById("img");
+				var parttern = context.createPattern(img,"repeat-x");
+				context.rect(300, 300, 100, 120);
+				context.fillStyle = parttern;
+				context.fill();
+
+			}
+			
+
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all) {
+				window.attachEvent('load', init); //ie
+			} else {
+				window.addEventListener('load', init, false); // 谷歌 火狐 等
+			}
+		</script>
+
+	</body>
+
+</html>

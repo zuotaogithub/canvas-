@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>12.canvas 变形.html</title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			/*不要在css 定义 画布的 宽 高*/
+			/*canvas{
+				width: 500px;
+				height: 500px;
+			}*/
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<!--<canvas id="canvas" width="500" height="500">-->
+		<canvas id="canvas" >
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 500;
+				canvas.height = 500;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+			
+//				drawscale();  
+//				drawtranslate();
+				drawRotate();
+			}
+
+			// canvas 直线
+			function drawscale() {
+				// scale() 缩放 缩放的是当前的绘图 更大 更小
+				context.beginPath();
+				context.rect(10,10,50,30);
+				context.scale(2,2);
+				context.rect(10,10,50,30);
+				context.scale(2,2);
+				context.rect(10,10,50,30);
+				context.closePath();
+				context.stroke();
+				
+			}
+			function drawtranslate() {
+				// translate() 平移 x y 分别代表 平移后的 水平和垂直的 坐标值
+				context.beginPath();
+				context.fillRect(10,10,100,50);
+				context.translate(50,50);
+				context.fillRect(10,10,100,50);
+				context.closePath();
+				context.fill();
+				
+			}
+			
+			function drawRotate() {
+				// rotate() 旋转  角度 要换算成 弧度 180 = Math.PI
+				context.beginPath();
+				context.rotate(Math.PI/9); // 旋转 20度 注意换算 Math.PI
+				context.fillRect(50,50,100,50);
+				context.closePath();
+				context.fill();
+				
+			}
+
+			
+			
+		
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>

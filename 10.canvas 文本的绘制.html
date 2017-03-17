@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>10.canvas 文本的绘制</title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<canvas id="canvas">
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 1024;
+				canvas.height = 500;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+			
+				drawText(); //canvas 文本绘制
+				
+			}
+
+			// 绘制弧形
+			function drawText() {
+				// 绘制弧形
+				// π 180度  Math.PI  false 顺时针  true 逆时针
+				//context.arc(x,y,r,sAngle,eAngle,counterclockwise);
+				
+				
+				context.beginPath();
+				var text = "Hello World";
+				context.font="italic bold 40px serif";
+				
+				context.fillStyle= "red"
+				context.fillText(text,60,60); // 有填充色
+				
+				context.strokeStyle ="aqua"
+				context.strokeText(text,100,100); // 无填充色
+				
+				context.stroke();
+				context.closePath();
+				
+				
+				// 创建 竖线
+				context.strokeStyle="brown"
+				context.moveTo(200,150);
+				context.lineTo(200,400);
+				context.stroke();
+				var text2 = "Text align";
+				context.font="italic bold 20px serif";
+				
+				context.textAlign= "start";
+				context.fillText(text2,200,180);
+				context.textAlign= "end";
+				
+				context.fillText(text2,200,180);
+				context.textAlign= "left";
+				context.fillText(text2,200,250);
+				context.textAlign= "right";
+				context.fillText(text2,200,250);
+				
+				context.textAlign="center";
+				context.fillText(text2,200,300);
+				
+				
+
+			}
+			
+			
+		
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<title>22.canvas 在线绘图 </title>
+		
+		<style type="text/css">
+			*{
+				margin:0;
+				padding: 0;
+			}
+			h2{
+				width:500px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				/*margin:0 auto  20px;*/
+				margin-bottom: 20px;
+			}
+			canvas{
+				/*display: block;
+				margin: 0 auto;*/
+			}
+		</style>
+	</head>
+
+	<body style="padding: 30px;">
+			
+			<h2>canvas 在线绘图</h2>
+			<canvas id="canvas">
+				浏览器不支持
+			</canvas>
+		
+		
+		<script>
+			var canvas = document.getElementById("canvas");
+			canvas.width = 500;
+			canvas.height = 500;
+			canvas.style.border ="1px solid #111";
+			if(canvas.getContext("2d")){
+				context = canvas.getContext("2d");
+			}else{
+				alert("不支持");
+			}
+//			onmousedown	script	当元素上按下鼠标按钮时触发。
+//			onmousemove	script	当鼠标指针移动到元素上时触发。
+//			onmouseout	script	当鼠标指针移出元素时触发。
+//			onmouseover	script	当鼠标指针移动到元素上时触发。
+//			onmouseup	script	当在元素上释放鼠标按钮时触发。
+			
+			// clientX 鼠标指针相对于窗口的区雨的x 坐标
+			
+			//offsetLeft 距离浏览器边缘的位置
+			
+			canvas.onmousedown = function(event){
+				console.log(event.clientX  + " " + canvas.offsetLeft);
+				var x = event.clientX - canvas.offsetLeft; // 当前元素的x坐标
+				var y = event.clientY - canvas.offsetTop; // 当前元素的y坐标
+				context.beginPath();
+				context.moveTo(x,y);
+				
+				canvas.onmousemove = function(event){
+					var x = event.clientX - canvas.offsetLeft;
+					var y = event.clientY - canvas.offsetTop;
+					context.lineTo(x,y);
+					context.lineWidth =5;
+					context.lineJoin ="round";
+					context.lineCap ="round";
+					context.strokeStyle ="blueviolet";
+					context.stroke();
+				}
+				
+				document.onmouseup = function(){
+					context.closePath();
+					document.onmousemove = null; //清除 onmousemove 事件
+				}
+				
+			}
+			
+			
+			
+		</script>
+		
+		
+		
+	</body>
+
+</html>

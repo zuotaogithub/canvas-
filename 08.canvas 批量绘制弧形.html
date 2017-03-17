@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>08.canvas 批量绘制弧形 +  饼状图</title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<canvas id="canvas">
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 1024;
+				canvas.height = 500;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+			
+				drawArc1(); //canvas 批量绘制弧形
+				
+			}
+
+			// 绘制弧形
+			function drawArc1() {
+				// 绘制弧形
+				// π 180度  Math.PI  false 顺时针  true 逆时针
+				//context.arc(x,y,r,sAngle,eAngle,counterclockwise);
+				
+				context.lineWidth=2;
+				context.arc(300,300,100,0,Math.PI*2,false);
+				
+				for(var i=0;i<10;i++){
+					context.beginPath();
+					context.arc(50+i*100, 60,40,0,2*Math.PI*(i+1)/10,false);
+					context.fill();
+				}
+				
+				for(var i=0;i<10;i++){
+					context.beginPath();
+					context.arc(50+i*100, 200,40,0,2*Math.PI*(i+1)/10,true);
+					context.fill();
+				}
+				
+				for(var i=0;i<10;i++){
+					context.beginPath();
+					context.arc(50+i*100, 400,40,0,2*Math.PI,true);
+					context.fill();
+				}
+				
+				//饼状图
+				
+				context.beginPath();
+				context.lineWidth=2;
+				context.arc(300,300,100,0,Math.PI/2,true);
+				context.lineTo(300,300);
+				context.closePath();
+				context.fillStyle="aqua";
+				context.fill();
+				
+				
+				context.beginPath();
+				context.lineWidth=2;
+				context.arc(300,300,100,0,Math.PI/2,false);
+				context.lineTo(300,300);
+				context.closePath();
+				context.fillStyle="red";
+				context.fill();
+				
+				
+				
+
+			}
+			
+			
+		
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>

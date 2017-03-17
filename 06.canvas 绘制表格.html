@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>07. canvas 绘制弧形</title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<canvas id="canvas">
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 500;
+				canvas.height = 500;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+			
+				drawTable(); 
+				
+			}
+
+			// 绘制表格
+			function drawTable() {
+				// 绘制 表格
+
+				var rectH = 10;
+				var rectW = 10;
+				context.lineWidth=0.5;
+				context.beginPath();
+				//第一步 绘制 线条
+				for(var i=0; i< canvas.width / rectH;i++){
+					//横线
+					context.moveTo(0,i*rectH);
+					context.lineTo(canvas.width,i*rectH);
+					//竖线
+					context.moveTo(i*rectW,0);
+					context.lineTo(i*rectW,canvas.height);
+				}
+				context.closePath();
+				context.strokeStyle="aquamarine"
+				context.stroke();
+			}
+			
+			
+		
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>

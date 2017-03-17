@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>14.canvas 创建线性渐变 </title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			/*不要在css 定义 画布的 宽 高*/
+			/*canvas{
+				width: 500px;
+				height: 500px;
+			}*/
+		</style>
+	</head>
+
+	<body style="padding: 50px;">
+		<!--默认 宽 高 是 300x150 同样 我们可以用 style 给样式 支持ie9 以上的浏览器-->
+		<!--<canvas id="canvas" width="500" height="500">-->
+		<canvas id="canvas" >
+		 你好，您的浏览器不支持Canvas？
+	</canvas>
+
+		<script>
+			//获取canvas 的上下文环境,来获取2D绘图上下文 初始化
+			function init() {
+				// 获取html DOM 元素 canvas
+				var canvas = document.getElementById("canvas");
+				canvas.width = 500;
+				canvas.height = 500;
+				canvas.style.border = "1px solid #111";
+				if(canvas.getContext("2d")) {
+					// 获取canvas 的上下文环境,来获取2D绘图上下文
+					context = canvas.getContext("2d");
+				} else {
+					alert(" 你好，您的浏览器不支持Canvas");
+				}
+				
+				createLineargradient1(); // 创建左右线性渐变
+				createLineargradient2(); // 创建上下线性渐变
+			}
+			
+//			context.createLinearGradient(x0,y0,x1,y1);
+//			参数值
+//			参数	描述
+//			x0	渐变开始点的 x 坐标
+//			y0	渐变开始点的 y 坐标
+//			x1	渐变结束点的 x 坐标
+//			y1	渐变结束点的 y 坐标
+			
+			// 左右渐变
+			function createLineargradient1() {
+				context.beginPath();
+				var grd = context.createLinearGradient(0,0,60,0);
+				grd.addColorStop(0,"aqua");
+				grd.addColorStop(0.5,"#fff");
+				grd.addColorStop(1,"#111");
+				context.fillStyle= grd;
+				context.fillRect(20,20,100,70);
+				context.closePath();
+			}
+			
+			
+			//上下渐变
+			function createLineargradient2() {
+				context.beginPath();
+				var grd1 = context.createLinearGradient(0,0,0,70);
+				grd1.addColorStop(0,"black");
+				grd1.addColorStop(1,"red");
+				context.fillStyle = grd1;
+				context.fillRect(20,60,150,100);
+
+
+
+				
+			}
+
+			
+			
+		
+			//target.addEventListener(type,listener,userCapture);
+			if(document.all){
+				window.attachEvent('load',init); //ie
+			}else{
+				window.addEventListener('load',init,false); // 谷歌 火狐 等
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>

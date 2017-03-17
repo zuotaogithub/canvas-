@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<!-- iphone会把一串数字识别为电话号码，点击的时候会提示是否呼叫，屏蔽这功能则把telephone设置为no -->
+		<meta content="telephone=no" name="format-detection" />
+		<!-- iphone的私有标签，默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明） -->
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<!-- iphone设备的是有标签 允许全屏模式浏览，隐藏浏览器导航栏 -->
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<title>21.canvas 刮刮卡 .html</title>
+		
+		<style type="text/css">
+			*{
+				margin:0;
+				padding: 0;
+			}
+			#box{
+				width:100%;
+				height: 200px;
+				overflow: hidden;
+			}
+			
+			#price{
+				width: 100%;
+				height: 200px;
+				line-height: 200px;
+				background: #E4D236;
+				font-size: 60px;
+				color: #fff;
+				text-align: center;
+			}
+			#canvas{
+				position: absolute;
+				top:0;
+				left:0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="price">一等奖</div>
+			<canvas id="canvas">
+				浏览器不支持
+			</canvas>
+		</div>
+		
+		<script>
+			var canvas = document.getElementById("canvas");
+			var w = window.innerWidth;
+			canvas.width = w;
+			canvas.height = 200;
+			
+			if(canvas.getContext("2d")){
+				context = canvas.getContext("2d");
+			}
+			context.fillStyle="#ddd";
+			context.fillRect(0,0,w,200);
+			// touchstart 手指触摸屏幕触发
+			// touchmove 手指连续触摸屏幕时候触发 e.preventDefault()可以阻止滑动的
+			// touchend 手机离开触摸屏触发
+			
+			canvas.addEventListener("touchstart",move,false);
+			canvas.addEventListener("touchmove",line,false);
+			
+			function move(e){
+				var startX = e.touches[0].clientX;
+				var startY = e.touches[0].clientY;
+			
+				context.beginPath();
+				context.lineWidth = 30;
+				context.lineCap = "round";
+				context.lineJoin = "round";
+				// 设置返回图像 绘制到已有的图像上
+				context.globalCompositeOperation ="destination-out";
+				context.moveTo(startX,startY);
+			}
+			
+			function line(e){
+				var moveX = e.touches[0].clientX;
+				var moveY = e.touches[0].clientY;
+				console.log(moveX + " " +moveY);
+				context.lineTo(moveX,moveY);
+				context.stroke();
+			}
+			
+			
+			var arr = ["一等奖","二等奖","三等奖","谢谢惠顾","二等奖","谢谢惠顾","谢谢惠顾","三等奖","谢谢惠顾","三等奖","谢谢惠顾"];
+			var num = Math.round(Math.random()*(arr.length-1));
+			document.getElementById("price").innerHTML = arr[num];
+			
+			
+		</script>
+		
+		
+		
+	</body>
+
+</html>
